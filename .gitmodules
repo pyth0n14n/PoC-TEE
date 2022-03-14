@@ -1,0 +1,3 @@
+[submodule "FreedomStudio_project/src/sep2/micro-aes"]
+	path = FreedomStudio_project/src/sep2/micro-aes
+	url = https://github.com/SmarterDM/micro-aes
