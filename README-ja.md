@@ -1,6 +1,6 @@
 # RISC-V PoC TEE: Proof-of-Concept Trusted Execution Environment
 
-[English README is here](https://github.com/pyth0n14n/PoC-TEE/README.md)
+[English README is here](https://github.com/pyth0n14n/PoC-TEE/blob/main/README.md )
 
 PoC TEE (Proof-ofConcept Trusted Execution Environment) はRISC-V組込みデバイス向けのTEE実装です。
 Hex Five製X300コア ([URL](https://github.com/hex-five/multizone-fpga)) を実装したFPGAボード Arty A7-35T 上で動作します。
@@ -47,17 +47,17 @@ Arty A7でのRISC-V開発環境構築 (JTAGケーブルやIDE等) について�
 
 1. リポジトリをクローンする: `$ git clone github.com/pyth0n14n/PoC-TEE`
 2. サブモジュール (micro-aes) を取得する: `$ git submodule update --init`
-3. FreedomStudioで新たなFreedom E SDK プロジェクトを作成する
-   Select Target: freedom-e310-arty
-   Select Example: empty
+3. FreedomStudioで新たなFreedom E SDK プロジェクトを作成する  
+   Select Target: freedom-e310-arty  
+   Select Example: empty  
    Project name: 任意 (例えば"PoCTEE")
 
    ![Create project](image4readme/create_project.jpg)
 
-4. PoC-TEE/FreedomStudio_projectファイルの中身を作成したプロジェクトにコピー・上書き
+4. PoC-TEE/FreedomStudio_projectファイルの中身を作成したプロジェクトにコピー・上書き  
    `cp -rf PoC-TEE/FreedomStudio_project/* PoCTEE/`
 5. プロジェクトから `main.c, bsp/build` を削除する
-6. リビルドして(`Clean -> Build`)、empty.elfを作成する
+6. リビルドして(`Clean -> Build`)、empty.elfを作成する  
    ビルドサイズは 0x9886 となる
 7. empty.elfをX300コアを実装したArty A7に焼く
 
@@ -65,7 +65,7 @@ Arty A7でのRISC-V開発環境構築 (JTAGケーブルやIDE等) について�
 
 1. 通信確認用スクリプトのポート番号を変更する: `PoC-TEE/script/usb_riscv.py` (L.18)
 2. スクリプトを起動する: `$ python usb_riscv.py`
-3. 下記のような挙動が確認できればOK
+3. 下記のような挙動が確認できればOK  
    APP2によるAES暗号化結果とAPP3によるメモリダンプ結果が確認できる。
    APP3からAPP3(0x8000_3800)にはアクセスできるが、APP3からAPP2(0x8000_3000)にはアクセスできないことが確認できる。
    Monitorは、メモリアクセス例外に応じて共有メモリの内容を0xffで埋める。
@@ -85,34 +85,34 @@ PMPの利用方法に応じて、2種類のmonitorを作成した。
 
 - FreedomStudio_project
   - bsp
-    - metal.mod.lds
+    - metal.mod.lds  
       各アプリケーションのROM/RAM分離を実現するためのリンカスクリプト。
-    - design.dts
+    - design.dts  
       PMPを有効化したデザイン
-    - metal.h, metal-inline.h
+    - metal.h, metal-inline.h  
       PMPを有効化したヘッダファイル
   - src
-    - monitor.c/h
+    - monitor.c/h  
       PMP設定及びコンテキストスイッチの管理によりTEEを実現するモニタ。
       本モニタは、freedom-e-sdkで提供される3つの[サンプルアプリケーション](https://github.com/sifive/freedom-e-sdk/tree/master/software)を参考にしました。
       - exapmle-pmp
       - example-user-mode
       - example-syscall
-    - shared.c/h
+    - shared.c/h  
       共有の関数と共有メモリ。
-    - sep1
+    - sep1  
       UARTユーザコマンドを受け付け、適宜実行するディスパッチャ。OSのような働きを持つ。
-    - sep2
+    - sep2  
       秘密鍵を持ち、AESを実行する。攻撃耐性評価における被害者アプリケーション。
-    - sep3
+    - sep3  
       コマンドで指定したアドレスをダンプする。攻撃耐性評価における攻撃者アプリケーション。
 - freedom-metal/gross
-  - crt0.S
+  - crt0.S  
     FlashのコードをRAMに展開する。
 - script
-  - usb_riscv.py
+  - usb_riscv.py  
     PoC TEEの動作確認用通信スクリプト。SmartcardのAPDUを参考にした。
-- monitor_rewriting.c/monitor_switching.c
+- monitor_rewriting.c/monitor_switching.c  
   2種類のPMP用法に基づくモニタ。
   ビルドサイズは 0x9886 (rewriting), 0x9932 (switching) となる。
 
@@ -124,12 +124,12 @@ PMPの利用方法に応じて、2種類のmonitorを作成した。
 
 PoC TEEはRISC-VベースのTEEの故障注入攻撃耐性を評価するためのソフトウェアであるため、アプリケーションを分離する以外の機能の実装に課題が存在する。
 
-- ヒープメモリ
+- ヒープメモリ  
   PoC TEEではヒープメモリは実装していない。したがって、ヒープメモリの分離は行われない。`mallo()`等を実行した時の動作は確認していない。
-- ビルド設定の自動適用
+- ビルド設定の自動適用  
   リンカスクリプトにしたがって、3つのアプリケーションがハードコードされている。
   アプリケーションと分離設定にしたがってリンカスクリプトを自動生成するツールは提供していない。
-- 例外ハンドラにおける`sp`の使用方法
+- 例外ハンドラにおける`sp`の使用方法  
   例外ハンドラは`sp`を使用する。すなわち、モニタは例外ハンドリングの際に呼び出し元アプリケーションのスタックを利用することを意味する。
   ハンドラが呼び出された直後に変更すべきだが、Freedom Metalライブラリの改修が必要であったため、手を加えていない。
   このような実装は脆弱性となり得るが、攻撃耐性評価においては対象外の要素である。
