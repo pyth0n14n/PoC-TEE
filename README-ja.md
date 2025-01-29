@@ -134,22 +134,37 @@ PoC TEEはRISC-VベースのTEEの故障注入攻撃耐性を評価するため�
   ハンドラが呼び出された直後に変更すべきだが、Freedom Metalライブラリの改修が必要であったため、手を加えていない。
   このような実装は脆弱性となり得るが、攻撃耐性評価においては対象外の要素である。
 
+### GlobalPlatform定義*1との比較
+
+TEEには下記の7つの要件が求められます。PoC TEEは資源分離の検証に特化しているため、全ての性質を満たすわけではない点にご注意ください。
+
+![vsGlobalPlatform](image4readme/limitation.jpg)
+
+*1 GlobalPlatform, “Introduction to Trusted Execution Environments.”, May, 2018
+
 ## 出版と引用
 
 このPoC TEE及びその一部のコードがお役に立ちましたら、引用いただけると幸甚です。
-PoC TEEの説明については、論文もご参照下さい。
+PoC TEEの説明については、スライドや論文もご参照下さい。
 
 ```bibtex
-@online{nashimoto2022poctee,
-  title={PoC TEE: RISC-V Proof-of-Concept Trusted Execution Environment},
+@online{nashimoto2022pocteegit,
+  title={{PoC TEE: RISC-V Proof-of-Concept Trusted Execution Environment}},
   author={Nashimoto, Shoei and others},
   year={2022},
   publisher={GitHub},
   url={https://github.com/pyth0n14n/PoCTEE},
 }
 
+@inproceedings{nashimoto2022poctee,
+  title={{PoC TEE: Proof-of-Concept Implementation of RISC-V Trusted Execution Environment for Embedded Devices}},
+  author={Nashimoto, Shoei and Ueno, Rei and Naofumi, Homma},
+  year={2022},
+  booktitle={2nd Topics in hArdware SEcurity and RISC-V (TASER)},
+}
+
 @article{nashimoto2022bypassing,
-  title={Bypassing Isolated Execution on RISC-V using Side-Channel-Assisted Fault-Injection and Its Countermeasure},
+  title={{Bypassing Isolated Execution on RISC-V using Side-Channel-Assisted Fault-Injection and Its Countermeasure}},
   author={Nashimoto, Shoei and Suzuki, Daisuke and Ueno, Rei and Homma, Naofumi},
   journal={IACR Transactions on Cryptographic Hardware and Embedded Systems},
   pages={28--68},

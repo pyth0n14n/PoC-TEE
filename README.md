@@ -137,18 +137,35 @@ Since PoC TEE is software for evaluating the fault injection attack resistance o
   This means that the monitor uses the stack of the caller application for exception handling.
   This should be changed immediately after the handler is invoked, but has not been fixed because it required modifications to the Freedom Metal library.
 
+### Comparison with GlobalPlatform Definition*1
+
+TEE is required to meet the following seven requirements. Please note that the PoC TEE is specifically designed for verifying process and resource isolation and does not satisfy all of these properties.
+
+![vsGlobalPlatform](image4readme/limitation.jpg)
+
+*1 GlobalPlatform, “Introduction to Trusted Execution Environments.”, May, 2018
+
+
+
 ## Publications & Citation
 
 If PoC TEE helps you I would be glad if you cite them.
-For more information on PoC TEE, please refer to the paper.
+For more information on PoC TEE, please refer to the paper and presentation slides.
 
 ```bibtex
-@online{nashimoto2022poctee,
-  title={PoC TEE: RISC-V Proof-of-Concept Trusted Execution Environment},
+@online{nashimoto2022pocteegit,
+  title={{PoC TEE: RISC-V Proof-of-Concept Trusted Execution Environment}},
   author={Nashimoto, Shoei and others},
   year={2022},
   publisher={GitHub},
   url={https://github.com/pyth0n14n/PoCTEE},
+}
+
+@inproceedings{nashimoto2022poctee,
+  title={{PoC TEE: Proof-of-Concept Implementation of RISC-V Trusted Execution Environment for Embedded Devices}},
+  author={Nashimoto, Shoei and Ueno, Rei and Naofumi, Homma},
+  year={2022},
+  booktitle={2nd Topics in hArdware SEcurity and RISC-V (TASER)},
 }
 
 @article{nashimoto2022bypassing,
